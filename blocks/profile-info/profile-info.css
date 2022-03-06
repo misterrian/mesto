@@ -1,3 +1,7 @@
 .profile-info {
-
+  margin: 0 30px;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: max-content;
+  gap: 16px 18px;
 }

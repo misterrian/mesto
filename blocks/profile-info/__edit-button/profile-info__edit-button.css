@@ -1,1 +1,9 @@
-.profile-info__edit-button {}
+.profile-info__edit-button {
+  align-self: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
