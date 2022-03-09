@@ -12,7 +12,7 @@
   opacity: .6;
 }
 
-@media screen and (max-width: 994px) {
+@media screen and (max-width: 1003px) {
   .profile-info__edit-button {
     grid-column-start: 3;
     grid-column-end: 4;

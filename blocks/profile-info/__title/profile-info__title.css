@@ -8,7 +8,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media screen and (max-width: 994px) {
+@media screen and (max-width: 1003px) {
   .profile-info__title {
     grid-column-start: 2;
     grid-column-end: 3;
