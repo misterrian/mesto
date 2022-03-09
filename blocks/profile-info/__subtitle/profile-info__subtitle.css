@@ -9,3 +9,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@media screen and (max-width: 737px) {
+  .profile-info__subtitle {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}

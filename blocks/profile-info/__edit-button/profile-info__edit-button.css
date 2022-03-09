@@ -7,3 +7,16 @@
   align-items: center;
   justify-content: center;
 }
+
+.profile-info__edit-button:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 994px) {
+  .profile-info__edit-button {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    width: 18px;
+    height: 18px;
+  }
+}

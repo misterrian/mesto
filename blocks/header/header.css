@@ -2,3 +2,9 @@
   height: 74px;
   border-bottom: 1px solid #545454;
 }
+
+@media screen and (max-width: 394px) {
+  .header {
+    height: 56px;
+  }
+}

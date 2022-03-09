@@ -1,7 +1,17 @@
 .profile {
   margin-top: 40px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 120px 1fr 150px;
+  grid-template-areas: "avatar info button";
   align-items: center;
-  justify-content: space-between;
-  height: 120px;
+}
+
+@media screen and (max-width: 993px) {
+  .profile {
+    margin-top: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: space-between;
+  }
 }

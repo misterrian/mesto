@@ -3,3 +3,12 @@
   width: 22px;
   height: 19px;
 }
+
+.element__like:hover {
+  opacity: .5;
+}
+
+.element__like:active {
+  background-image: url("/images/heart-black.svg");
+  opacity: 1;
+}
