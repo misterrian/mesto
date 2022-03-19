@@ -1,8 +1,5 @@
 const formElement = document.querySelector('.popup');
-//formElement.addEventListener('submit', formSubmitHandler);
-
-const saveButton = document.querySelector('.popup__submit-button');
-saveButton.addEventListener('click', formSubmitHandler);
+formElement.addEventListener('submit', formSubmitHandler);
 
 const penButton = document.querySelector('.profile-info__edit-button');
 penButton.addEventListener('click', showPopup);
