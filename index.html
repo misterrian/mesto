@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="pages/index.css">
-  <title>Mesto</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pages/index.css">
+    <title>Mesto</title>
+  </head>
   <body class="body">
-  <div class="popup">
-    <div class="popup__container">
-      <img src="images/close-icon.svg" alt="Крестик" class="popup__close-icon">
-      <h1 class="popup__title">Редактировать профиль</h1>
-      <div class="form">
-        <input type="text" name="name" value="Жак-Ив Кусто" class="form__text">
-      </div>
-      <div class="form">
-        <input type="text" name="about-me" value="Исследователь океана" class="form__text">
-      </div>
-      <div class="popup__submit-button">
-        <p class="popup__submit-button-text">Сохранить</p>
+    <div class="popup">
+      <div class="popup__container">
+        <img src="images/close-icon.svg" alt="Крестик" class="popup__close-icon">
+        <h1 class="popup__title">Редактировать профиль</h1>
+        <div class="form">
+          <input id="name" type="text" name="name" class="form__text">
+        </div>
+        <div class="form">
+          <input id="job" type="text" name="about-me" class="form__text">
+        </div>
+        <!-- input type="submit" class="popup__submit-button" value="Сохранить" -->
+        <div class="popup__submit-button">
+          <p class="popup__submit-button-text">Сохранить</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="page">
+
+    <div class="page">
       <header class="header">
         <img src="images/logo.svg" alt="Логотип" class="header__logo">
       </header>
@@ -92,5 +94,6 @@
         <p class="footer__copyright">&copy;2022 Mesto Russia</p>
       </footer>
     </div>
+    <script src="scripts/script.js"></script>
   </body>
 </html>
