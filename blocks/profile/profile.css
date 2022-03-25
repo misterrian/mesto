@@ -2,7 +2,7 @@
   margin-top: 40px;
   width: 100%;
   display: grid;
-  grid-template-columns: 120px 1fr 150px;
+  grid-template-columns: 120px calc(100% - 270px) 150px;
   grid-template-areas: "avatar info button";
   align-items: center;
 }

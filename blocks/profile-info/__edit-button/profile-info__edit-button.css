@@ -2,10 +2,12 @@
   align-self: center;
   width: 24px;
   height: 24px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent url("../../../images/pencil.svg") no-repeat center;
+  padding: 0;
 }
 
 .profile-info__edit-button:hover {
