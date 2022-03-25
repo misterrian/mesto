@@ -1,6 +1,6 @@
 .profile-info {
   grid-area: info;
-  margin: 0 0 0 30px;
+  margin: 0 30px;
   display: grid;
   grid-template-columns: max-content max-content;
   grid-template-rows: max-content;
