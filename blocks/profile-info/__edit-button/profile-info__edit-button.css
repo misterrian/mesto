@@ -8,6 +8,7 @@
   justify-content: center;
   background: transparent url("../../../images/pencil.svg") no-repeat center;
   padding: 0;
+  transition: opacity 0.2s linear;
 }
 
 .profile-info__edit-button:hover {

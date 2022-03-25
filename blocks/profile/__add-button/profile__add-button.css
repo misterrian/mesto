@@ -9,6 +9,7 @@
   justify-content: center;
   background: url("../../../images/plus.svg") no-repeat center;
   box-sizing: border-box;
+  transition: opacity 0.2s linear;
 }
 
 .profile__add-button:hover {
