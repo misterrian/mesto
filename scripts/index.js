@@ -1,6 +1,6 @@
 const popupElement = document.querySelector('.popup');
-const popupContainer = popupElement.querySelector('.popup__container');
-popupContainer.addEventListener('submit', formSubmitHandler);
+const popupForm = popupElement.querySelector('#popup-form');
+popupForm.addEventListener('submit', formSubmitHandler);
 
 const penButton = document.querySelector('.profile-info__edit-button');
 penButton.addEventListener('click', showPopup);
