@@ -1,6 +1,4 @@
 .popup__preview {
   position: relative;
-  max-width: 75vw;
-  max-height: 75vw;
   margin: auto;
 }
