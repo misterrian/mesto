@@ -28,6 +28,12 @@ const initialCards = [
 const elements = document.querySelector('.elements');
 initialCards.forEach(card => elements.append(createCard(card)));
 
+const previewPopup = document.querySelector('#preview-popup');
+const photoPreview = previewPopup.querySelector('.popup__photo');
+const namePreview = previewPopup.querySelector('.popup__name-preview');
+const previewCloseButton = previewPopup.querySelector('.popup__close-icon');
+previewCloseButton.addEventListener('click', hidePreviewPopup);
+
 function createCard(card) {
     const elementContainer = document.createElement('div');
     elementContainer.classList.add('element');
@@ -36,6 +42,7 @@ function createCard(card) {
     picture.classList.add('element__picture');
     picture.alt = card.name;
     picture.src = card.link;
+    picture.addEventListener('click', () => onPictureClick(card));
 
     const remove = document.createElement('div');
     remove.classList.add('element__remove');
@@ -69,6 +76,12 @@ function onLikeClick(evt) {
     } else {
         classList.add('element__like_active');
     }
+}
+
+function onPictureClick(card) {
+    photoPreview.src = card.link;
+    namePreview.textContent = card.name;
+    previewPopup.classList.add('popup_opened');
 }
 
 const penButton = document.querySelector('.profile-info__edit-button');
@@ -133,4 +146,8 @@ function showPlacePopup() {
 
 function hidePlacePopup() {
     newPlacePopup.classList.remove('popup_opened');
+}
+
+function hidePreviewPopup() {
+    previewPopup.classList.remove('popup_opened');
 }

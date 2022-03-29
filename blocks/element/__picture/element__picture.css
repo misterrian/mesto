@@ -4,3 +4,7 @@
   object-fit: cover;
   object-position: top;
 }
+
+.element__picture:hover {
+  cursor: pointer;
+}
