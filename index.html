@@ -7,14 +7,26 @@
     <title>Mesto</title>
   </head>
   <body class="body">
-    <div class="popup">
+    <div id="profile-popup" class="popup">
       <div class="popup__container">
         <button type="button" class="popup__close-icon"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="profile-editor" id="popup-form">
+        <form name="profile-editor" id="profile-form">
           <input id="name" type="text" name="name" class="popup__input">
           <input id="job" type="text" name="about-me" class="popup__input">
           <button type="submit" class="popup__submit-button">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="new-place-popup" class="popup">
+      <div class="popup__container">
+        <button type="button" class="popup__close-icon"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form name="new-place-editor" id="place-form">
+          <input id="place" type="text" name="name" class="popup__input" placeholder="Название">
+          <input id="link" type="text" name="link" class="popup__input" placeholder="Ссылка на картинку">
+          <button type="submit" class="popup__submit-button">Создать</button>
         </form>
       </div>
     </div>
@@ -35,50 +47,7 @@
           <button type="button" class="profile__add-button"></button>
         </section>
 
-        <section class="elements">
-          <div class="element">
-            <img src="images/karachayevsk.jpg" alt="Карачаевск" class="element__picture">
-            <div class="element__description">
-              <h2 class="element__title">Карачаевск</h2>
-              <div class="element__like"></div>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/elbrus.jpg" alt="Эльбрус" class="element__picture">
-            <div class="element__description">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <div class="element__like"></div>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/dombay.jpg" alt="Домбай" class="element__picture">
-            <div class="element__description">
-              <h2 class="element__title">Домбай</h2>
-              <div class="element__like"></div>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/elbrus.jpg" alt="Эльбрус" class="element__picture">
-            <div class="element__description">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <div class="element__like"></div>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/dombay.jpg" alt="Домбай" class="element__picture">
-            <div class="element__description">
-              <h2 class="element__title">Домбай</h2>
-              <div class="element__like"></div>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/karachayevsk.jpg" alt="Карачаевск" class="element__picture">
-            <div class="element__description">
-              <h2 class="element__title">Карачаево-Черкесия</h2>
-              <div class="element__like"></div>
-            </div>
-          </div>
-        </section>
+        <section class="elements"></section>
       </main>
 
       <footer class="footer">

@@ -8,8 +8,3 @@
   opacity: .5;
   cursor: pointer;
 }
-
-.element__like:active {
-  background-image: url("/images/heart-black.svg");
-  opacity: 1;
-}
