@@ -26,6 +26,7 @@ const initialCards = [
 ];
 
 const elements = document.querySelector('.elements');
+const cardTemplate = document.querySelector('#element-template').content;
 initialCards.forEach(card => elements.append(createCard(card)));
 
 const penButton = document.querySelector('.profile-info__edit-button');
@@ -43,8 +44,8 @@ const profileJob = profilePopup.querySelector('#job');
 const profileCloseButton = profilePopup.querySelector('.popup__close-icon');
 profileCloseButton.addEventListener('click', () => hidePopup(profilePopup));
 
-const addButton = document.querySelector('.profile__add-button');
-addButton.addEventListener('click', () => showPopup(newPlacePopup));
+const newPlaceButton = document.querySelector('.profile__add-button');
+newPlaceButton.addEventListener('click', showNewPlacePopup);
 
 const newPlacePopup = document.querySelector('#new-place-popup');
 const placeCloseButton = newPlacePopup.querySelector('.popup__close-icon');
@@ -77,6 +78,12 @@ function profileFormSubmitHandler(evt) {
     hidePopup(profilePopup);
 }
 
+function showNewPlacePopup() {
+    newPlaceName.value = '';
+    newPlaceLink.value = '';
+    showPopup(newPlacePopup);
+}
+
 function placeFormSubmitHandler(evt) {
     evt.preventDefault();
 
@@ -90,18 +97,14 @@ function placeFormSubmitHandler(evt) {
 
 function onPictureClick(card) {
     photoPreview.src = card.link;
+    photoPreview.alt = card.name;
     namePreview.textContent = card.name;
 
     showPopup(previewPopup);
 }
 
 function onLikeClick(evt) {
-    const classList = evt.target.classList;
-    if (classList.contains('element__like_active')) {
-        classList.remove('element__like_active');
-    } else {
-        classList.add('element__like_active');
-    }
+    evt.target.classList.toggle('element__like_active');
 }
 
 function showPopup(popup) {
@@ -113,32 +116,16 @@ function hidePopup(popup) {
 }
 
 function createCard(card) {
-    const element = document.createElement('div');
-    element.classList.add('element');
+    const element = cardTemplate.querySelector('.element').cloneNode(true);
 
-    const picture = document.createElement('img');
-    picture.classList.add('element__picture');
+    const picture = element.querySelector('.element__picture');
     picture.alt = card.name;
     picture.src = card.link;
     picture.addEventListener('click', () => onPictureClick(card));
 
-    const remove = document.createElement('div');
-    remove.classList.add('element__remove');
-    remove.addEventListener('click', () => element.remove());
-
-    const descriptionContainer = document.createElement('div');
-    descriptionContainer.classList.add('element__description');
-
-    const title = document.createElement('h2');
-    title.classList.add('element__title');
-    title.textContent = card.name;
-
-    const like = document.createElement('div');
-    like.classList.add('element__like');
-    like.addEventListener('click', onLikeClick);
-
-    descriptionContainer.append(title, like);
-    element.append(picture, remove, descriptionContainer);
+    element.querySelector('.element__remove').addEventListener('click', () => element.remove());
+    element.querySelector('.element__title').textContent = card.name;
+    element.querySelector('.element__like').addEventListener('click', onLikeClick);
 
     return element;
 }
