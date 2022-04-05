@@ -33,7 +33,7 @@ const penButton = document.querySelector('.profile-info__edit-button');
 penButton.addEventListener('click', onEditProfilePopup);
 
 const profilePopup = document.querySelector('#profile-popup');
-const profileForm = profilePopup.querySelector('#profile-form');
+const profileForm = profilePopup.querySelector('.popup__form');
 profileForm.addEventListener('submit', profileFormSubmitHandler);
 
 const profileTitle = document.querySelector('.profile-info__title');
@@ -50,7 +50,7 @@ newPlaceButton.addEventListener('click', showNewPlacePopup);
 const newPlacePopup = document.querySelector('#new-place-popup');
 const placeCloseButton = newPlacePopup.querySelector('.popup__close-icon');
 placeCloseButton.addEventListener('click', () => hidePopup(newPlacePopup));
-const placeForm = newPlacePopup.querySelector('#place-form');
+const placeForm = newPlacePopup.querySelector('.popup__form');
 placeForm.addEventListener('submit', placeFormSubmitHandler);
 
 const newPlaceName = newPlacePopup.querySelector('#place');
@@ -61,6 +61,19 @@ const photoPreview = previewPopup.querySelector('.popup__photo');
 const namePreview = previewPopup.querySelector('.popup__name-preview');
 const previewCloseButton = previewPopup.querySelector('.popup__close-icon');
 previewCloseButton.addEventListener('click', () => hidePopup(previewPopup));
+
+const popups = Array.from(document.querySelectorAll('.popup'));
+popups.forEach(popup => {
+    popup.addEventListener('click', evt => onPopupClick(evt, popup));
+});
+
+document.addEventListener('keypress', evt => {
+    if (evt.key === 'Escape') {
+        popups
+            .filter(popup => popup.contains('popup_opened'))
+            .forEach(popup => hidePopup(popup));
+    }
+});
 
 function onEditProfilePopup() {
     profileName.value = profileTitle.textContent;
@@ -113,6 +126,12 @@ function showPopup(popup) {
 
 function hidePopup(popup) {
     popup.classList.remove('popup_opened');
+}
+
+function onPopupClick(evt, popup) {
+    if (evt.target.classList.contains('popup')) {
+        hidePopup(popup);
+    }
 }
 
 function createCard(card) {

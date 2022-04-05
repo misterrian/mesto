@@ -34,9 +34,11 @@
         <div class="popup__container">
           <button type="button" class="popup__close-icon"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form name="profile-editor" id="profile-form">
-            <input id="name" type="text" name="name" class="popup__input">
-            <input id="job" type="text" name="about-me" class="popup__input">
+          <form name="profile-editor" class="popup__form" novalidate>
+            <input id="name" type="text" name="name" class="popup__input" minlength="2" maxlength="40" required>
+            <span class="name-error popup__error-message"></span>
+            <input id="job" type="text" name="job" class="popup__input" minlength="2" maxlength="200" required>
+            <span class="job-error popup__error-message"></span>
             <button type="submit" class="popup__submit-button">Сохранить</button>
           </form>
         </div>
@@ -46,10 +48,13 @@
         <div class="popup__container">
           <button type="button" class="popup__close-icon"></button>
           <h2 class="popup__title">Новое место</h2>
-          <form name="new-place-editor" id="place-form">
-            <input id="place" type="text" name="name" class="popup__input" placeholder="Название">
-            <input id="link" type="text" name="link" class="popup__input" placeholder="Ссылка на картинку">
-            <button type="submit" class="popup__submit-button">Создать</button>
+          <form name="new-place-editor" class="popup__form" novalidate>
+            <input id="place" type="text" name="place" class="popup__input" placeholder="Название" minlength="2"
+                   maxlength="30" required>
+            <span class="place-error popup__error-message"></span>
+            <input id="link" type="url" name="link" class="popup__input" placeholder="Ссылка на картинку" required>
+            <span class="link-error popup__error-message"></span>
+            <button type="submit" class="popup__submit-button popup__submit-button_disabled">Создать</button>
           </form>
         </div>
       </div>
@@ -74,5 +79,6 @@
       </template>
     </div>
     <script src="scripts/index.js"></script>
+    <script src="scripts/validate.js"></script>
   </body>
 </html>
