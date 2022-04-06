@@ -9,45 +9,56 @@ enableValidation({
 function enableValidation(validationSettings) {
     const forms = Array.from(document.querySelectorAll(validationSettings.formSelector));
     forms.forEach(form => {
-        const inputFields = Array.from(form.querySelectorAll(validationSettings.inputSelector));
-        const submitButton = form.querySelector(validationSettings.submitButtonSelector);
+        form.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+        });
 
-        const formValidator = () => {
-            if (inputFields.every(field => field.validity.valid)) {
-                submitButton.classList.remove(validationSettings.inactiveButtonClass);
-            } else {
-                inputFields.forEach(filed => console.log(filed.validity));
-                submitButton.classList.add(validationSettings.inactiveButtonClass);
-            }
-        };
-
-        inputFields.forEach(field => injectFieldValidation(validationSettings, form, field, formValidator));
+        setEventListeners(validationSettings, form);
     });
 }
 
-function injectFieldValidation(validationSettings, form, field, formValidator) {
-    const fieldError = form.querySelector(`.${field.id}-error`);
+function setEventListeners(validationSettings, form) {
+    const inputFields = Array.from(form.querySelectorAll(validationSettings.inputSelector));
+    const submitButton = form.querySelector(validationSettings.submitButtonSelector);
 
-    const showInputError = (errorMessage) => {
-        field.classList.add(validationSettings.inputErrorClass);
-        fieldError.textContent = errorMessage;
-    };
+    toggleButtonState(validationSettings.inactiveButtonClass, inputFields, submitButton);
 
-    const hideInputError = () => {
-        field.classList.remove(validationSettings.inputErrorClass);
-        fieldError.textContent = '';
-    };
-
-    const isValid = () => {
-        if (field.validity.valid) {
-            hideInputError();
-        } else {
-            showInputError(field.validationMessage);
-        }
-    };
-
-    field.addEventListener('input', () => {
-        isValid();
-        formValidator();
+    inputFields.forEach((inputField) => {
+        inputField.addEventListener('input', () => {
+            checkInputValidity(validationSettings.inputErrorClass, form, inputField);
+            toggleButtonState(validationSettings.inactiveButtonClass, inputFields, submitButton);
+        });
     });
+}
+
+function toggleButtonState(inactiveButtonClass, inputFields, buttonElement) {
+    if (areAllInputsValid(inputFields)) {
+        buttonElement.classList.remove(inactiveButtonClass);
+    } else {
+        buttonElement.classList.add(inactiveButtonClass);
+    }
+}
+
+function areAllInputsValid(inputFields) {
+    return inputFields.every(field => field.validity.valid);
+}
+
+function checkInputValidity(inputErrorClass, formElement, inputElement) {
+    if (inputElement.validity.valid) {
+        hideInputError(inputErrorClass, formElement, inputElement);
+    } else {
+        showInputError(inputErrorClass, formElement, inputElement, inputElement.validationMessage);
+    }
+}
+
+function showInputError(inputErrorClass, formElement, inputElement, errorMessage) {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add(inputErrorClass);
+    errorElement.textContent = errorMessage;
+}
+
+function hideInputError(inputErrorClass, formElement, inputElement) {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove(inputErrorClass);
+    errorElement.textContent = '';
 }
