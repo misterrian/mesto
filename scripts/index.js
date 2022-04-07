@@ -66,6 +66,7 @@ function openEditProfilePopup() {
     profileName.value = profileTitle.textContent;
     profileJob.value = profileSubtitle.textContent;
 
+    initFormValidationState(formSelectors, profilePopup);
     showPopup(profilePopup);
 }
 
@@ -80,6 +81,7 @@ function showNewPlacePopup() {
     newPlaceName.value = '';
     newPlaceLink.value = '';
 
+    initFormValidationState(formSelectors, newPlacePopup);
     showPopup(newPlacePopup);
 }
 
@@ -108,8 +110,6 @@ function showPopup(popup) {
     popup.addEventListener('click', handlePopupClick);
     document.addEventListener('keydown', closeByEscape);
     popup.classList.add('popup_opened');
-
-    initFormValidationState(formSelectors, popup);
 }
 
 function hidePopup(popup) {
