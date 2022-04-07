@@ -25,6 +25,13 @@ const initialCards = [
     }
 ];
 
+const formSelectors = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit-button',
+    inputErrorClass: 'popup__input_type_error'
+};
+
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#element-template').content;
 initialCards.forEach(card => cardsContainer.append(createCard(card)));
@@ -63,10 +70,6 @@ function openEditProfilePopup() {
 }
 
 function handleProfileFormSubmit() {
-    if (isSubmitButtonDisabled(profilePopup)) {
-        return;
-    }
-
     profileTitle.textContent = profileName.value;
     profileSubtitle.textContent = profileJob.value;
 
@@ -81,10 +84,6 @@ function showNewPlacePopup() {
 }
 
 function handlePlaceFormSubmit() {
-    if (isSubmitButtonDisabled(newPlacePopup)) {
-        return;
-    }
-
     cardsContainer.prepend(createCard({
         name: newPlaceName.value,
         link: newPlaceLink.value
@@ -107,19 +106,16 @@ function toggleLikeButton(evt) {
 
 function showPopup(popup) {
     popup.addEventListener('click', handlePopupClick);
-    document.addEventListener('keypress', closeByEscape);
+    document.addEventListener('keydown', closeByEscape);
     popup.classList.add('popup_opened');
+
+    initFormValidationState(formSelectors, popup);
 }
 
 function hidePopup(popup) {
     popup.classList.remove('popup_opened');
     popup.removeEventListener('click', handlePopupClick);
-    document.removeEventListener('keypress', closeByEscape);
-}
-
-function isSubmitButtonDisabled(popup) {
-    const submitButton = popup.querySelector('.popup__submit-button');
-    return submitButton.classList.contains('popup__submit-button_disabled');
+    document.removeEventListener('keydown', closeByEscape);
 }
 
 const closeByEscape = (evt) => {

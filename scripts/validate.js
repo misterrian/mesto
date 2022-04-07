@@ -1,10 +1,4 @@
-enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_disabled',
-    inputErrorClass: 'popup__input_type_error'
-});
+enableValidation(formSelectors);
 
 function enableValidation(validationSettings) {
     const forms = Array.from(document.querySelectorAll(validationSettings.formSelector));
@@ -21,21 +15,31 @@ function setEventListeners(validationSettings, form) {
     const inputFields = Array.from(form.querySelectorAll(validationSettings.inputSelector));
     const submitButton = form.querySelector(validationSettings.submitButtonSelector);
 
-    toggleButtonState(validationSettings.inactiveButtonClass, inputFields, submitButton);
+    toggleSubmitButtonState(inputFields, submitButton);
 
-    inputFields.forEach((inputField) => {
+    inputFields.forEach(inputField => {
         inputField.addEventListener('input', () => {
             checkInputValidity(validationSettings.inputErrorClass, form, inputField);
-            toggleButtonState(validationSettings.inactiveButtonClass, inputFields, submitButton);
+            toggleSubmitButtonState(inputFields, submitButton);
         });
     });
 }
 
-function toggleButtonState(inactiveButtonClass, inputFields, buttonElement) {
+function initFormValidationState(validationSettings, popup) {
+    const form = popup.querySelector(validationSettings.formSelector);
+
+    const inputFields = Array.from(form.querySelectorAll(validationSettings.inputSelector));
+    inputFields.forEach(inputField => hideInputError(validationSettings.inputErrorClass, form, inputField));
+
+    const submitButton = form.querySelector(validationSettings.submitButtonSelector);
+    toggleSubmitButtonState(inputFields, submitButton);
+}
+
+function toggleSubmitButtonState(inputFields, buttonElement) {
     if (areAllInputsValid(inputFields)) {
-        buttonElement.classList.remove(inactiveButtonClass);
+        buttonElement.removeAttribute('disabled');
     } else {
-        buttonElement.classList.add(inactiveButtonClass);
+        buttonElement.setAttribute('disabled', '');
     }
 }
 
