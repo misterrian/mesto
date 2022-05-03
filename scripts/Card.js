@@ -1,10 +1,8 @@
 export default class Card {
-    constructor(data, cardSelector, previewPopup) {
-        this._name = data.name;
-        this._link = data.link;
-        this._liked = false;
+    constructor({ name, link }, cardSelector) {
+        this._name = name;
+        this._link = link;
         this._cardSelector = cardSelector;
-        this._previewPopup = previewPopup;
     }
 
     generateCard() {
@@ -29,9 +27,6 @@ export default class Card {
     }
 
     _setEventListeners() {
-        this._element.querySelector('.element__picture')
-            .addEventListener('click', () => this._previewPopup.showPopup(this._name, this._link));
-
         this._element.querySelector('.element__remove')
             .addEventListener('click', () => this._removeCard());
 
@@ -44,17 +39,6 @@ export default class Card {
     }
 
     _toggleLikeButton() {
-        this._setLikeButton(!this._liked)
-    }
-
-    _setLikeButton(liked) {
-        this._liked = liked;
-
-        const classList = this._element.querySelector('.element__like').classList;
-        if (this._liked) {
-            classList.add('element__like_active');
-        } else {
-            classList.remove('element__like_active');
-        }
+        this._element.querySelector('.element__like').classList.toggle('element__like_active');
     }
 }
