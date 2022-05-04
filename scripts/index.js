@@ -1,16 +1,13 @@
 import {
-    initialCards,
     cardsContainer,
-    namePreview,
+    initialCards,
     newPlaceButton,
     newPlaceLink,
     newPlaceName,
     newPlacePopup,
     penButton,
-    photoPreview,
     placeForm,
     placeFormValidator,
-    previewPopup,
     profileForm,
     profileFormValidator,
     profileJob,
@@ -21,6 +18,7 @@ import {
 } from "./constants.js";
 
 import Card from "./Card.js";
+import {hidePopup, showPopup} from "./utils.js";
 
 function openEditProfilePopup() {
     profileName.value = profileTitle.textContent;
@@ -38,9 +36,7 @@ function handleProfileFormSubmit() {
 }
 
 function showNewPlacePopup() {
-    newPlaceName.value = '';
-    newPlaceLink.value = '';
-
+    placeForm.reset();
     placeFormValidator.enableValidation();
     showPopup(newPlacePopup);
 }
@@ -54,47 +50,9 @@ function handlePlaceFormSubmit() {
     hidePopup(newPlacePopup);
 }
 
-function showPopup(popup) {
-    popup.addEventListener('click', handlePopupClick);
-    document.addEventListener('keydown', closeByEscape);
-    popup.classList.add('popup_opened');
-}
-
-function hidePopup(popup) {
-    popup.classList.remove('popup_opened');
-    popup.removeEventListener('click', handlePopupClick);
-    document.removeEventListener('keydown', closeByEscape);
-}
-
-const closeByEscape = (evt) => {
-    if (evt.key === 'Escape') {
-        const openedPopup = document.querySelector('.popup_opened');
-        hidePopup(openedPopup);
-    }
-}
-
-const handlePopupClick = (evt) => {
-    const classList = evt.target.classList;
-    if (classList.contains('popup') || classList.contains('popup__close-icon')) {
-        const popup = document.querySelector('.popup_opened');
-        hidePopup(popup);
-    }
-}
-
 function makeCard(cardData) {
     const card = new Card(cardData, '#element-template');
-    const cardElement = card.generateCard();
-
-    cardElement.querySelector('.element__picture')
-        .addEventListener('click', () => {
-            photoPreview.src = cardData.link;
-            photoPreview.alt = cardData.name;
-            namePreview.textContent = cardData.name;
-
-            showPopup(previewPopup);
-        });
-
-    return cardElement;
+    return card.generateCard();
 }
 
 penButton.addEventListener('click', openEditProfilePopup);

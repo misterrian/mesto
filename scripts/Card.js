@@ -1,3 +1,11 @@
+import {
+    namePreview,
+    photoPreview,
+    previewPopup
+} from "./constants.js";
+
+import {showPopup} from "./utils.js";
+
 export default class Card {
     constructor({ name, link }, cardSelector) {
         this._name = name;
@@ -27,6 +35,15 @@ export default class Card {
     }
 
     _setEventListeners() {
+        this._element.querySelector('.element__picture')
+            .addEventListener('click', () => {
+                photoPreview.src = this._link;
+                photoPreview.alt = this._name;
+                namePreview.textContent = this._name;
+
+                showPopup(previewPopup);
+            });
+
         this._element.querySelector('.element__remove')
             .addEventListener('click', () => this._removeCard());
 
