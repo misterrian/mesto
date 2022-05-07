@@ -1,16 +1,9 @@
-import {
-    namePreview,
-    photoPreview,
-    previewPopup
-} from "./constants.js";
-
-import {showPopup} from "./utils.js";
-
 export default class Card {
-    constructor({ name, link }, cardSelector) {
+    constructor({name, link}, cardSelector, handleCardClick) {
         this._name = name;
         this._link = link;
         this._cardSelector = cardSelector;
+        this._handleCardClick = handleCardClick;
     }
 
     generateCard() {
@@ -36,13 +29,7 @@ export default class Card {
 
     _setEventListeners() {
         this._element.querySelector('.element__picture')
-            .addEventListener('click', () => {
-                photoPreview.src = this._link;
-                photoPreview.alt = this._name;
-                namePreview.textContent = this._name;
-
-                showPopup(previewPopup);
-            });
+            .addEventListener('click', this._handleCardClick);
 
         this._element.querySelector('.element__remove')
             .addEventListener('click', () => this._removeCard());
