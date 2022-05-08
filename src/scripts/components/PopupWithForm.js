@@ -1,6 +1,5 @@
 import {formSelectors} from "../utils/сonstants.js";
 import Popup from "./Popup.js";
-import FormValidator from "./FormValidator.js";
 
 export default class PopupWithForm extends Popup {
     constructor(popupSelector, submitCallback) {
@@ -8,22 +7,7 @@ export default class PopupWithForm extends Popup {
 
         this._submitCallback = submitCallback;
         this._form = this._popup.querySelector(formSelectors.formSelector);
-        this._validator = new FormValidator(formSelectors, this._form);
         this._inputFields = Array.from(this._form.querySelectorAll(formSelectors.inputSelector));
-
-        this._setEventListeners();
-    }
-
-    open(defaultValues= {}) {
-        this._inputFields.forEach(inputFiled => {
-            const value = defaultValues[inputFiled.name];
-            if (value) {
-                inputFiled.value = value;
-            }
-        });
-
-        this._validator.enableValidation();
-        super.open();
     }
 
     close() {
@@ -31,14 +15,26 @@ export default class PopupWithForm extends Popup {
         this._form.reset();
     }
 
-    _setEventListeners() {
+    setEventListeners() {
         this._form.addEventListener('submit', evt => {
-            evt.preventDefault();
             this._submitCallback(this._getInputValues());
             this.close();
         });
 
-        super._setEventListeners();
+        super.setEventListeners();
+    }
+
+    setInputValues(values) {
+        this._inputFields.forEach(inputFiled => {
+            const value = values[inputFiled.name];
+            if (value) {
+                inputFiled.value = value;
+            }
+        });
+    }
+
+    getForm() {
+        return this._form;
     }
 
     _getInputValues() {
