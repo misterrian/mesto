@@ -15,9 +15,7 @@ export default class FormValidator {
     }
 
     initValidationState() {
-        this._inputFields.forEach(
-            field => this._hideInputError(this._validatorSettings.inputErrorClass, this._form, field)
-        );
+        this._inputFields.forEach(field => this._hideInputError(field));
         this._toggleSubmitButtonState();
     }
 
@@ -26,7 +24,7 @@ export default class FormValidator {
 
         this._inputFields.forEach(inputField => {
             inputField.addEventListener('input', () => {
-                this._checkInputValidity(this._validatorSettings.inputErrorClass, this._form, inputField);
+                this._checkInputValidity(inputField);
                 this._toggleSubmitButtonState();
             });
         });
@@ -46,23 +44,23 @@ export default class FormValidator {
         return this._inputFields.every(field => field.validity.valid);
     }
 
-    _checkInputValidity(inputErrorClass, formElement, inputElement) {
+    _checkInputValidity(inputElement) {
         if (inputElement.validity.valid) {
-            this._hideInputError(inputErrorClass, formElement, inputElement);
+            this._hideInputError(inputElement);
         } else {
-            this._showInputError(inputErrorClass, formElement, inputElement, inputElement.validationMessage);
+            this._showInputError(inputElement, inputElement.validationMessage);
         }
     }
 
-    _showInputError(inputErrorClass, formElement, inputElement, errorMessage) {
-        const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-        inputElement.classList.add(inputErrorClass);
+    _showInputError(inputElement, errorMessage) {
+        const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
+        inputElement.classList.add(this._validatorSettings.inputErrorClass);
         errorElement.textContent = errorMessage;
     }
 
-    _hideInputError(inputErrorClass, formElement, inputElement) {
-        const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-        inputElement.classList.remove(inputErrorClass);
+    _hideInputError(inputElement) {
+        const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
+        inputElement.classList.remove(this._validatorSettings.inputErrorClass);
         errorElement.textContent = '';
     }
 }
