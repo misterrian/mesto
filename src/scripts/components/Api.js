@@ -1,5 +1,3 @@
-import {convertToJson} from "../utils/PromiseUtils.js";
-
 export default class Api {
     constructor({userUrl, baseUrl, headers}) {
         this._userUrl = userUrl;
@@ -11,14 +9,14 @@ export default class Api {
         return fetch(`${this._userUrl}`, {
             headers: this._headers,
         })
-            .then(convertToJson);
+            .then(res => this._checkResponse(res));
     }
 
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers,
         })
-            .then(convertToJson);
+            .then(res => this._checkResponse(res));
     }
 
     saveAvatar(avatarData) {
@@ -27,7 +25,7 @@ export default class Api {
             headers: this._headers,
             body: JSON.stringify(avatarData),
         })
-            .then(convertToJson);
+            .then(res => this._checkResponse(res));
     }
 
     saveProfile(profileData) {
@@ -36,7 +34,7 @@ export default class Api {
             headers: this._headers,
             body: JSON.stringify(profileData),
         })
-            .then(convertToJson);
+            .then(res => this._checkResponse(res));
     }
 
     addCard(cardData) {
@@ -45,7 +43,7 @@ export default class Api {
             headers: this._headers,
             body: JSON.stringify(cardData),
         })
-            .then(convertToJson);
+            .then(res => this._checkResponse(res));
     }
 
     removeCard(cardId) {
@@ -53,7 +51,7 @@ export default class Api {
             method: 'DELETE',
             headers: this._headers,
         })
-            .then(convertToJson);
+            .then(res => this._checkResponse(res));
     }
 
     addLike(cardId) {
@@ -61,7 +59,7 @@ export default class Api {
             method: 'PUT',
             headers: this._headers,
         })
-            .then(convertToJson);
+            .then(res => this._checkResponse(res));
     }
 
     removeLike(cardId) {
@@ -69,6 +67,12 @@ export default class Api {
             method: 'DELETE',
             headers: this._headers,
         })
-            .then(convertToJson);
+            .then(res => this._checkResponse(res));
+    }
+
+    _checkResponse(response) {
+        return response.ok
+            ? response.json()
+            : Promise.reject(`Ошибка: ${response.status}, ${response.statusText}`);
     }
 }

@@ -23,7 +23,10 @@ const avatarPopup = new PopupWithForm(
     avatarData => {
         const cleanup = initializeSavingProgress(avatarPopup.getForm());
         api.saveAvatar(avatarData)
-            .then(res => userInfo.setAvatar(res.avatar))
+            .then(res => {
+                userInfo.setAvatar(res.avatar);
+                avatarPopup.close();
+            })
             .catch(logError)
             .finally(cleanup);
     },
@@ -48,7 +51,10 @@ const profilePopup = new PopupWithForm(
     profileData => {
         const cleanup = initializeSavingProgress(profilePopup.getForm());
         api.saveProfile(profileData)
-            .then(res => userInfo.setUserInfo(res))
+            .then(res => {
+                userInfo.setUserInfo(res);
+                profilePopup.close();
+            })
             .catch(logError)
             .finally(cleanup);
     },
@@ -71,7 +77,10 @@ const newPlacePopup = new PopupWithForm(
     cardData => {
         const cleanup = initializeSavingProgress(newPlacePopup.getForm());
         api.addCard(cardData)
-            .then(res => section.addItem(makeCard(res), true))
+            .then(res => {
+                section.addItem(makeCard(res), true);
+                newPlacePopup.close();
+            })
             .catch(logError)
             .finally(cleanup);
     },
@@ -108,15 +117,16 @@ const api = new Api({
     }
 });
 
-api.getUserInfo()
-    .then(res => {
-        userInfo.setAvatar(res.avatar);
-        userInfo.setUserInfo(res);
+Promise
+    .all([
+        api.getUserInfo(),
+        api.getInitialCards(),
+    ])
+    .then(results => {
+        userInfo.setAvatar(results[0].avatar);
+        userInfo.setUserInfo(results[0]);
+        section.renderItems(results[1]);
     })
-    .catch(logError);
-
-api.getInitialCards()
-    .then(result => section.renderItems(result))
     .catch(logError);
 
 function makeCard(cardData) {
@@ -127,7 +137,10 @@ function makeCard(cardData) {
         () => previewPopup.open(cardData),
         () => submitPopup.open(() => {
             api.removeCard(card.getCardId())
-                .then(() => card.removeCard())
+                .then(() => {
+                    card.removeCard();
+                    submitPopup.close();
+                })
                 .catch(logError);
         }),
         () => {
